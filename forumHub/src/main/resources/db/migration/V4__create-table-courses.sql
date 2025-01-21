@@ -1,0 +1,7 @@
+CREATE TABLE courses
+(
+   id UUID PRIMARY KEY,
+   name VARCHAR (128) NOT NULL,
+   category VARCHAR (128),
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
