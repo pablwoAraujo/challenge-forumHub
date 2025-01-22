@@ -18,6 +18,11 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 public class User implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private UUID id;
 
@@ -63,9 +68,7 @@ public class User implements UserDetails {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
+
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -79,9 +82,16 @@ public class User implements UserDetails {
 	public String getUsername() {
 		return this.name;
 	}
+	
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
 	}
+
+
 }

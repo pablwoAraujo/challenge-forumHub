@@ -27,10 +27,8 @@ public class SecurityConfiguration {
 		return http.csrf(AbstractHttpConfigurer::disable)
 				.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(req -> {
-					req.requestMatchers(HttpMethod.GET, "/topicos", "/topicos/*").permitAll();
+					req.requestMatchers(HttpMethod.GET, "/topics", "/topics/*").permitAll();
 					req.requestMatchers("/login").permitAll();
-					req.requestMatchers(HttpMethod.POST, "/user").permitAll();
-					req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
 					req.anyRequest().authenticated();
 				}).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}
