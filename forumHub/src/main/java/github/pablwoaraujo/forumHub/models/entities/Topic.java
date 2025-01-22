@@ -40,6 +40,15 @@ public class Topic {
 	public Topic() {
 	}
 
+	public Topic(String title, String message, String status, User author, Course course) {
+		this.id = UUID.randomUUID();
+		this.title = title;
+		this.message = message;
+		this.status = status;
+		this.author = author;
+		this.course = course;
+	}
+
 	public UUID getId() {
 		return id;
 	}

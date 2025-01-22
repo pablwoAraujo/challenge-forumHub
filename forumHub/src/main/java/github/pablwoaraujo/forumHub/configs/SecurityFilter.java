@@ -1,20 +1,19 @@
 package github.pablwoaraujo.forumHub.configs;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import github.pablwoaraujo.forumHub.repositories.UserRepository;
 import github.pablwoaraujo.forumHub.services.TokenService;
-
-import java.io.IOException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -43,7 +42,8 @@ public class SecurityFilter extends OncePerRequestFilter {
 	}
 
 	private String recuperarToken(HttpServletRequest request) {
-		var token = request.getHeader("Authorization");
+		var token = request.getHeader("Authorization").trim();
+		System.out.println(token);
 		if (token == null || token.isBlank() || !token.startsWith("Bearer ")) {
 			return null;
 		}

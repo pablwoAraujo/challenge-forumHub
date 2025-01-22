@@ -27,6 +27,12 @@ public class Course {
 	public Course() {
 	}
 
+	public Course(String name, String category) {
+		this.id = UUID.randomUUID();
+		this.name = name;
+		this.category = category;
+	}
+
 	public UUID getId() {
 		return id;
 	}
