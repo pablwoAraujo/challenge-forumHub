@@ -61,4 +61,14 @@ public class TopicService {
 	public Optional<Topic> findById(UUID id) {
 		return topicRepository.findById(id);
 	}
+
+	public void delete(UUID id) {
+		Optional<Topic> topic = this.findById(id);
+
+		if (topic.isEmpty()) {
+			throw new RuntimeException("Tópico não encontrado.");
+		}
+
+		topicRepository.deleteById(id);
+	}
 }
