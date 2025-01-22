@@ -1,6 +1,7 @@
 package github.pablwoaraujo.forumHub.services;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,5 +56,9 @@ public class TopicService {
 		Page<Topic> topics = topicRepository.findAll(pagination);
 
 		return topics;
+	}
+
+	public Optional<Topic> findById(UUID id) {
+		return topicRepository.findById(id);
 	}
 }
