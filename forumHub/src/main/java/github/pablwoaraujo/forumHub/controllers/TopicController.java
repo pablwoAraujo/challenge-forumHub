@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import github.pablwoaraujo.forumHub.models.dtos.TopicRequestDto;
+import github.pablwoaraujo.forumHub.models.dtos.UpdateTopicRequestDto;
 import github.pablwoaraujo.forumHub.models.entities.Topic;
 import github.pablwoaraujo.forumHub.services.TopicService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/topic")
@@ -52,6 +55,13 @@ public class TopicController {
 		if (topic.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
+
+		return ResponseEntity.ok(topic.get());
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Topic> update(@PathVariable UUID id, @RequestBody @Valid UpdateTopicRequestDto data) {
+		Optional<Topic> topic = service.update(id, data);
 
 		return ResponseEntity.ok(topic.get());
 	}

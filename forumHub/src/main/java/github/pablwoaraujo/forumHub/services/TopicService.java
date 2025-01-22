@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import github.pablwoaraujo.forumHub.models.dtos.TopicRequestDto;
+import github.pablwoaraujo.forumHub.models.dtos.UpdateTopicRequestDto;
 import github.pablwoaraujo.forumHub.models.entities.Course;
 import github.pablwoaraujo.forumHub.models.entities.Topic;
 import github.pablwoaraujo.forumHub.models.entities.User;
@@ -70,5 +71,26 @@ public class TopicService {
 		}
 
 		topicRepository.deleteById(id);
+	}
+
+	public Optional<Topic> update(UUID id, UpdateTopicRequestDto data) {
+		Optional<Topic> topicOptional = this.findById(id);
+
+		if (topicOptional.isEmpty()) {
+			throw new RuntimeException("Tópico não encontrado.");
+		}
+
+		Topic topic = topicOptional.get();
+
+		if (data.title() != null && !data.title().isEmpty()) {
+			topic.setTitle(data.title());
+		}
+
+		if (data.message() != null && !data.message().isEmpty()) {
+			topic.setMessage(data.message());
+		}
+
+		topic = topicRepository.save(topic);
+		return Optional.of(topic);
 	}
 }
